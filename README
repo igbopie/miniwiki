@@ -2,7 +2,53 @@
 
 MiniWiki
 
-- Using mocha to test
+
+You are building an API for a mini-Wikipedia with only a single article called 'Latest_plane_crash'.
+Just after a plane crash happened, there is a surge of API requests for this article from app and desktop users (>20k req/s).
+As an approximation for some data massaging, each request for the article in your server needs to recursively calculate fibonacci(34).
+
+At the same time, a lot of editors following the news are scrambling to update the page as details emerge (up to 10 attempted edits/s).
+Editing happens by downloading the current revision of the text, modifying it and posting it back to the API.
+The article contains HTML, and should be persisted stored as a plain file on disk. Your code will run on a single 12-core server.
+
+Please design and implement a simple server providing this API using an environment of your choice.
+Please describe which other resources you'd use in production to handle the request rates mentioned,
+and how you'd interact with those resources.
+
+
+1. First Steps
+
+First, I did the fibonacci function and install mocha to verify that I was doing it correctly.
+
+Second, writing to database, or writing to disk is "slow". In order to make it fast writing to editors we will have to
+implement some kind of qeue, so writing requests are going to be queued and processed when possible. But, I have just realized that
+in order to update, you need the latest version of the article...
+
+Third, for readers, I will try to keep a memory version of the article (to emulate a cache). But this article will need to
+be updated when there is a change. One option is to poll every certain time, but it will waste time and resources. Another option
+is to do long polling (leave a connection open) but we have a better option. To keep our local cache updated we are going to use websockets.
+
+Four, in node there is only 1 thread, so a 12 core machine will not be fully used. But, there is a workaround to create
+12 node servers in the same machine to use all the power.
+
+2. The code
+
+I am using a standard express nodejs directory structure with these differences:
+
+* data: this is where we are going to store the article
+* test: mocha test files
+
+3. Setup
+
+npm install
+
+If you have problems with dependencies I had to run also:
+
+npm update
+
+3. Test
+
+Using mocha to test
 
 > mocha
 
