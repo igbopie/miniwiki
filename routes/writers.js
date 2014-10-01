@@ -3,11 +3,17 @@ var fs = require('fs');
 var DATA_FILE = __dirname+"/../data/article.txt";
 var DATA_FILE_LENGTH = 5000;
 var RandomUtil = require("../utils/random");
+
 var router = express.Router();
-// To avoid null cyclic dependencies it is better to export first.
-module.exports = router;
 
 
+// SOCKETS to keep readers updated
+var myws = [];
+
+router.addWS = function(ws){
+    console.log("Addded client")
+    myws.push(ws);
+}
 
 /* GET users listing. */
 router.get('/', function(req, res) {
@@ -30,6 +36,11 @@ router.post('/', function(req, res) {
             handleError(res,err);
         } else {
             res.json({}); //http 200
+            //BG
+            for(var i = 0 ; i < myws.length; i++) {
+                console.log("sending msg "+i);
+                myws[i].send(content);
+            }
         }
     });
 });
@@ -51,3 +62,6 @@ function handleError(res,err){
     res.json(500,{msg:"there was an error",error:err});
 }
 initDemoFile();
+
+
+module.exports = router;

@@ -29,7 +29,7 @@ be updated when there is a change. One option is to poll every certain time, but
 is to do long polling (leave a connection open) but we have a better option. To keep our local cache updated we are going to use websockets.
 
 Four, in node there is only 1 thread, so a 12 core machine will not be fully used. But, there is a workaround to create
-12 node servers in the same machine to use all the power.
+12 node servers in the same machine to use all the power. (http://rowanmanning.com/posts/node-cluster-and-express/)
 
 2. The code
 
