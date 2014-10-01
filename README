@@ -68,7 +68,8 @@ I wasn't be able to get the cluster working ok with websockets. So I left it wit
 
 Probably I will try to use a qeue in the Writers API to spread the message throw all the readers. Also, I will try to
 separate the Readers API and the Writers API. Run them in separate servers. Also I will try to use some kind of load testing
-to see the overall performance. I am sorry I didn't get the time to deploy it to a Heroku instance.
+to see the overall performance. I am sorry I didn't get the time to deploy it to a Heroku instance and improve some issues
+of the code (like the 2 seconds delay to startup).
 
  THANK YOU!!!
 
