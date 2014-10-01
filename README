@@ -46,10 +46,12 @@ If you have problems with dependencies I had to run also:
 
 npm update
 
-3. Test
+4. Test
 
-Using mocha to test
+Run:
+node app.js
 
-> mocha
+Wait 2 seconds then on another terminal:
+mocha
 
 
