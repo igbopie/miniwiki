@@ -38,6 +38,12 @@ I am using a standard express nodejs directory structure with these differences:
 * data: this is where we are going to store the article
 * test: mocha test files
 
+And:
+
+* routes/readers.js would be where all the "normal" users should use to read.
+* routes/writers.js would be where all the editors should use to read and edit the article.
+
+
 3. Setup
 
 npm install
@@ -53,5 +59,17 @@ node app.js
 
 Wait 2 seconds then on another terminal:
 mocha
+
+5. Notes
+
+I wasn't be able to get the cluster working ok with websockets. So I left it with 1 thread.
+
+6. Future Improvements
+
+Probably I will try to use a qeue in the Writers API to spread the message throw all the readers. Also, I will try to
+separate the Readers API and the Writers API. Run them in separate servers. Also I will try to use some kind of load testing
+to see the overall performance. I am sorry I didn't get the time to deploy it to a Heroku instance.
+
+ THANK YOU!!!
 
 
